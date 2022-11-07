@@ -1,0 +1,26 @@
+{
+  "name": "stages-scraper",
+  "version": "1.0.0",
+  "description": "scrapes stages",
+  "main": "stagesScraper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reithose/stages-scraper.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reithose/stages-scraper/issues"
+  },
+  "homepage": "https://github.com/reithose/stages-scraper#readme",
+  "dependencies": {
+    "axios": "^1.1.3",
+    "cheerio": "^1.0.0-rc.12",
+    "js-yaml": "^4.1.0",
+    "luxon": "^3.1.0"
+  }
+}
