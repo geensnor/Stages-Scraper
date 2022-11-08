@@ -4,7 +4,7 @@ const { DateTime } = require("luxon");
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const url = "https://firstcycling.com/race.php?r=13&y=2023&k=2";
+const url = "https://firstcycling.com/race.php?r=765&y=2023&k=2";
 
 async function scrapeData(url) {
 
@@ -21,7 +21,7 @@ async function scrapeData(url) {
 
             if (stageDataSplitted[3].replace(/\t/g, "") != "Date" && stageDataSplitted[4].replace(/\t/g, "") != "-") {//Skip header and resting days
 
-                outputDate = DateTime.fromFormat(`${stageDataSplitted[3].replace(/\t/g, "")}.${year}`, "d.LLLL.yyyy").toFormat('y-MM-dd'); //Reformatting date
+                outputDate = DateTime.fromFormat(`${stageDataSplitted[3].replace(/\t/g, "")}.${year}`, "d.LLL.yyyy").toFormat('y-MM-dd'); //Reformatting date
                 let stageObject = {
                     "number": stageNumber,
                     "route": stageDataSplitted[5].replace(/\t/g, "").replace("-", " - "),
