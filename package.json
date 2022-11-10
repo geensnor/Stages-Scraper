@@ -4,19 +4,20 @@
   "description": "scrapes stages",
   "main": "stagesScraper.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "node stagesScraper.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reithose/stages-scraper.git"
+    "url": "git+https://github.com/geensnor/Stages-Scraper.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/reithose/stages-scraper/issues"
+    "url": "https://github.com/geensnor/Stages-Scraper/issues"
   },
-  "homepage": "https://github.com/reithose/stages-scraper#readme",
+  "homepage": "https://github.com/geensnor/Stages-Scraper#readme",
   "dependencies": {
     "axios": "^1.1.3",
     "cheerio": "^1.0.0-rc.12",

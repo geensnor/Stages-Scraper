@@ -4,7 +4,7 @@ const { DateTime } = require("luxon");
 const yaml = require('js-yaml');
 const fs = require('fs');
 
-const url = "https://firstcycling.com/race.php?r=765&y=2023&k=2";
+const url = decodeURIComponent(process.argv[2]);//Get url from prompt
 
 async function scrapeData(url) {
 

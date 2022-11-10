@@ -10,16 +10,10 @@ npm install
 
 ## Uitvoeren
 
-Pas in stagesScraper.js de volgende regel aan zodat hij naar de juist ronde verwijst.
+Voeg de URL van de ronde toe aan het het scrape command. Voor de Giro van 2023 krijg je dan bijvoorbeeld
 
 ```
-const url = "https://firstcycling.com/race.php?r=13&y=2023&k=2";
-```
-
-Typ in de terminal
-
-```
-node stagesScraper.js
+npm run scrape "https://firstcycling.com/race.php?r=13&y=2023&k=2"
 ```
 
 Alle etappes staan in de output directory
