@@ -4,7 +4,7 @@ Scraped etappes van een ronde van firstcycling.com en zet deze in het juist YAML
 
 ## Installatie
 
-```
+```sh
 npm install 
 ```
 
@@ -12,7 +12,7 @@ npm install
 
 Voeg de URL van de ronde toe aan het het scrape command. Voor de Giro van 2023 krijg je dan bijvoorbeeld
 
-```
+```sh
 npm run scrape "https://firstcycling.com/race.php?r=13&y=2023&k=2"
 ```
 
