@@ -21,3 +21,7 @@ Alle etappes staan in de output directory
 ## Alleen etappes
 
 Deze tool haalt alleen de etappes zelf op. Voor renners en uitslagen moet je deze gebruiken: [geensnor.nl/tourtool](https://www.geensnor.nl/tourtool)
+
+## Truien template
+
+In het bestand `jerseyTemplate.yaml` kun je de truien voor de ronde bepalen. Deze truien komen dan in elke etappe, op de juiste manier terug in de etappe YAML bestanden.
