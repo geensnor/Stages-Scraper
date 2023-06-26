@@ -5,7 +5,7 @@ Scraped etappes van een ronde van firstcycling.com en zet deze in het juist YAML
 ## Installatie
 
 ```sh
-npm install 
+npm install
 ```
 
 ## Uitvoeren
