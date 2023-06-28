@@ -80,7 +80,7 @@ async function scrapeData(url) {
           stageResults: "",
           jerseyWearers: fileJerseys,
         };
-        let yamlString = yaml.dump(stageObject);
+        let yamlString = "---\n" + yaml.dump(stageObject);
         console.log(
           "stage " + stageNumber + ": " + formattedDate + " " + formatedRoute
         );
