@@ -5,7 +5,8 @@
   "main": "stagesScraper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape": "node stagesScraper.js"
+    "scrape": "node stagesScraper.js",
+    "format": "npx prettier --check output/**"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
     "cheerio": "^1.0.0-rc.12",
     "js-yaml": "^4.1.0",
     "luxon": "^3.2.1"
+  },
+  "devDependencies": {
+    "prettier": "3.2.5"
   }
 }
