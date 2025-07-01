@@ -72,13 +72,42 @@ async function scrapeData(url) {
           .replace("-", " - ")
           .trim(); //Reformatting route
 
+        const imgSrc = $(el).find("img").attr("src") || "";
+        let type = "";
+        if (imgSrc) {
+          const matches = imgSrc.match(/\/([^\/]+)\.svg$/);
+          if (matches && matches[1]) {
+            const iconName = matches[1];
+            switch (iconName) {
+              case "Flatt":
+                type = "flat";
+                break;
+              case "Smaakupert":
+              case "Smaakupert-MF":
+                type = "hills";
+                break;
+              case "Fjell-MF":
+                type = "climb";
+                break;
+              case "Bakketempo":
+              case "Tempo":
+                type = "time";
+                break;
+              default:
+                type = "unknown";
+            }
+          }
+        }
+
         let stageObject = {
           number: stageNumber,
-          route: formatedRoute,
           date: formattedDate,
+          route: formatedRoute,
+          type: type,
           status: "notStarted",
           stageResults: "",
           jerseyWearers: fileJerseys,
+          type: type,
         };
         let yamlString = "---\n" + yaml.dump(stageObject);
         console.log(
