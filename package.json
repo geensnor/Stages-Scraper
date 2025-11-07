@@ -2,10 +2,12 @@
   "name": "stages-scraper",
   "version": "1.0.0",
   "description": "scrapes stages",
-  "main": "stagesScraper.js",
+  "main": "cli.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scrape": "node stagesScraper.js",
+    "scrape:stages": "node cli.js stages",
+    "scrape:cyclists": "node cli.js cyclists",
+    "scrape:tour": "node cli.js tour",
     "format": "npx prettier --check output/**"
   },
   "repository": {

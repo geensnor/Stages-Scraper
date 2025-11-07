@@ -1,0 +1,15 @@
+---
+number: 17
+route: Bollène - Valence
+type: flat
+date: '2025-07-23'
+status: notStarted
+stageResults: null
+jerseyWearers:
+  - jersey: De Gele Trui
+    cyclist: ''
+  - jersey: De Bolletjes Trui
+    cyclist: ''
+meta:
+  source: https://www.procyclingstats.com/race/tour-de-france/2025/route/stages
+  distance: 160.4
