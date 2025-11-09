@@ -1,0 +1,31 @@
+---
+name: Tour de France 2025
+status: closed
+maxCyclistsInUserTeam: 15
+tourURL:
+scrapeURL: https://www.procyclingstats.com/race/tour-de-france/2025
+jerseys:
+  De Gele Trui: 25
+  De Bolletjes Trui: 10
+scoring:
+  - 30
+  - 15
+  - 12
+  - 9
+  - 8
+  - 7
+  - 6
+  - 5
+  - 4
+  - 3
+finalStandingScoring:
+  - 150
+  - 125
+  - 100
+  - 80
+  - 60
+  - 50
+  - 40
+  - 30
+  - 20
+  - 10

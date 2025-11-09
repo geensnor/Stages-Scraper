@@ -7,7 +7,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "scrape:stages": "node cli.js stages",
     "scrape:cyclists": "node cli.js cyclists",
-    "scrape:tour": "node cli.js tour",
     "format": "npx prettier --check output/**"
   },
   "repository": {

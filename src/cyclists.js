@@ -3,6 +3,7 @@ const path = require("path");
 const {
   fetchHtml,
   ensureDir,
+  loadTourConfig,
   normalizeCyclistName,
   writeYamlFile,
 } = require("./utils");
@@ -11,12 +12,15 @@ function cleanTeamName(rawName) {
   return rawName.replace(/\s*\((WT|PRT|CT)\)\s*$/i, "").trim();
 }
 
-async function scrapeCyclists({ slug, year, outputDir = "" }) {
-  if (!slug || !year) {
-    throw new Error("Slug en jaar zijn verplicht voor het scrapen van renners");
+async function scrapeCyclists({ outputDir = "" }) {
+  const tourConfig = loadTourConfig();
+  const scrapeURL = tourConfig.scrapeURL;
+
+  if (!scrapeURL) {
+    throw new Error("scrapeURL ontbreekt in tour.yaml");
   }
 
-  const url = `https://www.procyclingstats.com/race/${slug}/${year}/startlist/startlist`;
+  const url = `${scrapeURL}/startlist/startlist`;
   const $ = await fetchHtml(url);
 
   const teams = [];

@@ -21,20 +21,29 @@ function ensureDir(relativeDir) {
   return dirPath;
 }
 
-function loadJerseys(
-  templatePath = path.resolve(__dirname, "../jerseyTemplate.yaml")
+function loadTourConfig(
+  configPath = path.resolve(__dirname, "../input/tour.yaml")
 ) {
-  if (!fs.existsSync(templatePath)) {
+  if (!fs.existsSync(configPath)) {
+    throw new Error(`Tour configuratie niet gevonden: ${configPath}`);
+  }
+
+  const raw = fs.readFileSync(configPath, "utf8");
+  const config = yaml.load(raw);
+  if (!config || typeof config !== "object") {
+    throw new Error(`Ongeldige tour configuratie in ${configPath}`);
+  }
+
+  return config;
+}
+
+function loadJerseys(tourConfig) {
+  if (!tourConfig || !tourConfig.jerseys) {
     return [];
   }
 
-  const raw = fs.readFileSync(templatePath, "utf8");
-  const jerseys = yaml.load(raw);
-  if (!Array.isArray(jerseys)) {
-    return [];
-  }
-
-  return jerseys;
+  // Jerseys is nu een object met naam: punten
+  return Object.keys(tourConfig.jerseys);
 }
 
 function mapProfileIconToStageType(iconClass, stageLabel = "") {
@@ -121,6 +130,7 @@ function writeYamlFile(targetPath, data) {
 module.exports = {
   fetchHtml,
   ensureDir,
+  loadTourConfig,
   loadJerseys,
   mapProfileIconToStageType,
   formatRoute,

@@ -6,7 +6,6 @@ const yaml = require("js-yaml");
 
 const { scrapeStages } = require("./src/stages");
 const { scrapeCyclists } = require("./src/cyclists");
-const { scrapeTour } = require("./src/tour");
 
 function toCamelCase(kebab) {
   return kebab.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
@@ -92,17 +91,10 @@ function printUsage() {
   console.log(`Gebruik: node cli.js <command> [--opties]
 
 Beschikbare commands:
-  stages   --slug <naam> --year <jaar> [--output <pad>]
-  cyclists --slug <naam> --year <jaar> [--output <pad>]
-  tour     --slug <naam> --year <jaar> [extra opties]
+  stages   [--output <pad>]
+  cyclists [--output <pad>]
 
-Extra opties tour:
-  --status <open|closed>
-  --max-cyclists <aantal>
-  --scoring <pad-naar-array-of-komma-gescheiden-waarden>
-  --final-scoring <pad-naar-array-of-komma-gescheiden-waarden>
-  --jersey-points <pad-naar-object-of-lijst-naam=punten>
-  --output <pad>
+De scrapeURL en andere configuratie wordt gelezen uit input/tour.yaml.
 `);
 }
 
@@ -117,35 +109,16 @@ async function main() {
   const command = args[0];
   const options = parseArguments(args.slice(1));
 
-  const { slug, year, output = command } = options;
+  const { output = command } = options;
 
   try {
     switch (command) {
       case "stages": {
-        if (!slug || !year) throw new Error("--slug en --year zijn verplicht");
-        await scrapeStages({ slug, year, outputDir: output });
+        await scrapeStages({ outputDir: output });
         break;
       }
       case "cyclists": {
-        if (!slug || !year) throw new Error("--slug en --year zijn verplicht");
-        await scrapeCyclists({ slug, year, outputDir: output });
-        break;
-      }
-      case "tour": {
-        if (!slug || !year) throw new Error("--slug en --year zijn verplicht");
-        const tourOptions = {
-          slug,
-          year,
-          status: options.status || "open",
-          maxCyclistsInUserTeam: options.maxCyclists
-            ? Number(options.maxCyclists)
-            : 15,
-          scoring: parseArrayOption(options.scoring),
-          finalStandingScoring: parseArrayOption(options.finalScoring),
-          jerseys: parseKeyValueOption(options.jerseyPoints),
-          outputDir: output,
-        };
-        await scrapeTour(tourOptions);
+        await scrapeCyclists({ outputDir: output });
         break;
       }
       default:
