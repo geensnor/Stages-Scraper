@@ -1,4 +1,6 @@
 const { DateTime } = require("luxon");
+const fs = require("fs");
+const yaml = require("js-yaml");
 const path = require("path");
 
 const {
@@ -215,6 +217,31 @@ async function scrapeStages({ outputDir = "stages" }) {
 
   // Nu voor elke stage de resultaten scrapen indien nodig
   for (const stage of stages) {
+    const targetFile = path.resolve(
+      stageOutputDir,
+      `stage-${stage.number.toString().padStart(2, "0")}.yaml`
+    );
+
+    // Skippen als de etappe al als finished staat met ingevulde resultaten
+    if (fs.existsSync(targetFile)) {
+      try {
+        const existing = yaml.load(fs.readFileSync(targetFile, "utf8"));
+        const existingResults =
+          existing && (existing.stageResults || existing.stage_results);
+        const hasResults =
+          Array.isArray(existingResults) && existingResults.length > 0;
+        if (existing && existing.status === "finished" && hasResults) {
+          // eslint-disable-next-line no-console
+          console.log(
+            `Etappe ${stage.number} overgeslagen (${stage.date}) - finished`
+          );
+          continue;
+        }
+      } catch (_) {
+        // bij parse-fout: gewoon verder scrapen en bestand herstellen
+      }
+    }
+
     let stageResults = null;
     let status = "notStarted";
 
@@ -234,11 +261,6 @@ async function scrapeStages({ outputDir = "stages" }) {
       stageResults,
       jerseyWearers: jerseys.map((name) => ({ jersey: name, cyclist: "" })),
     };
-
-    const targetFile = path.resolve(
-      stageOutputDir,
-      `stage-${stage.number.toString().padStart(2, "0")}.yaml`
-    );
 
     writeYamlFile(targetFile, stageObject);
     // eslint-disable-next-line no-console

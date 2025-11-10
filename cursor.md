@@ -6,6 +6,7 @@
   - Renners: <https://raw.githubusercontent.com/geensnor/Geensnor-Tourpoule-Data/refs/heads/main/schemas/cyclists.json>
   - Etappe: <https://github.com/geensnor/Geensnor-Tourpoule-Data/blob/main/schemas/stage.json>
   - De etappes moeten ook de gefinished renners in de goede volgorde bevatten als een etappe is gefinished. Het aantal gefinished renners per etappe is gelijk aan het aantal plaatsen waar je nog punten voor krijgt. Het aantal "scoring" items in tour.yaml dus. De status van een etappe is dan ook "finished".
+  - Als een etappe de status "finished" heeft en de renners zijn bij de uitslagen ingevuld, moet deze niet opnieuw gescraped worden.
   - De status en uitslagen van een etappe kan opgehaald via de pagina van de srapeULR. Op die pagina staan ook de etappes. De uitslagen van een etappe staan op de detailpagina van een etappe.
 - In de input directory staan twee bestanden die als basis dienen voor het scrapen
 - In tour.yaml staat de scrapeURL. Dit is de URL waarvoor de ronden en de
