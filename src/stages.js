@@ -11,6 +11,7 @@ const {
   mapProfileIconToStageType,
   formatRoute,
   normalizeCyclistName,
+  normalizeStageCyclistName,
   writeYamlFile,
 } = require("./utils");
 
@@ -91,8 +92,7 @@ async function scrapeStageResults(stageUrl, maxResults) {
         if (!riderNameRaw) {
           return;
         }
-
-        const normalized = normalizeCyclistName(riderNameRaw);
+        const normalized = normalizeStageCyclistName(riderNameRaw);
         if (normalized) {
           results.push(normalized);
         }
@@ -104,7 +104,9 @@ async function scrapeStageResults(stageUrl, maxResults) {
         return;
       }
 
-      const normalized = normalizeCyclistName(riderNameRaw);
+      console.log(`Found rider name: "${riderNameRaw}"`);
+      const normalized = normalizeStageCyclistName(riderNameRaw);
+      console.log("normalized rider name:", normalized);
       if (normalized) {
         results.push(normalized);
       }
@@ -116,7 +118,7 @@ async function scrapeStageResults(stageUrl, maxResults) {
     // eslint-disable-next-line no-console
     console.error(
       `Fout bij scrapen van stage results van ${stageUrl}:`,
-      error.message
+      error.message,
     );
     return null;
   }
@@ -219,7 +221,7 @@ async function scrapeStages({ outputDir = "stages" }) {
   for (const stage of stages) {
     const targetFile = path.resolve(
       stageOutputDir,
-      `stage-${stage.number.toString().padStart(2, "0")}.yaml`
+      `stage-${stage.number.toString().padStart(2, "0")}.yaml`,
     );
 
     // Skippen als de etappe al als finished staat met ingevulde resultaten
@@ -233,7 +235,7 @@ async function scrapeStages({ outputDir = "stages" }) {
         if (existing && existing.status === "finished" && hasResults) {
           // eslint-disable-next-line no-console
           console.log(
-            `Etappe ${stage.number} overgeslagen (${stage.date}) - finished`
+            `Etappe ${stage.number} overgeslagen (${stage.date}) - finished`,
           );
           continue;
         }
@@ -265,7 +267,7 @@ async function scrapeStages({ outputDir = "stages" }) {
     writeYamlFile(targetFile, stageObject);
     // eslint-disable-next-line no-console
     console.log(
-      `Etappe ${stage.number} opgeslagen (${stage.date}) - ${status}`
+      `Etappe ${stage.number} opgeslagen (${stage.date}) - ${status}`,
     );
   }
 

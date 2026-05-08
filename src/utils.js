@@ -21,7 +21,7 @@ function ensureDir(relativeDir) {
 }
 
 function loadTourConfig(
-  configPath = path.resolve(__dirname, "../input/tour.yaml")
+  configPath = path.resolve(__dirname, "../input/tour.yaml"),
 ) {
   if (!fs.existsSync(configPath)) {
     throw new Error(`Tour configuratie niet gevonden: ${configPath}`);
@@ -94,31 +94,48 @@ function titleCase(word) {
     .join("");
 }
 
+/*Deze functie maakt een mooie naam, maar gaat er vanuit dat de achternaam (die vooraan staat bij PCS) niet uit hoofdletters bestaat */
+function normalizeStageCyclistName(rawName) {
+  const name = rawName.trim();
+  if (!name) return name;
+
+  const tokens = name.split(/\s+/);
+  if (tokens.length < 2) return titleCase(name);
+
+  // PCS etapperesultaten zijn altijd: Achternaam Voornaam
+  // Laatste token = voornaam, rest = achternaam
+  const firstName = tokens[tokens.length - 1];
+  const lastName = tokens.slice(0, tokens.length - 1).join(" ");
+
+  return `${titleCase(firstName)} ${titleCase(lastName)}`.trim();
+}
+
+/* Deze functie doet hetzelfdie als die hierboven, maar deze maakt ook nog kleine letters van de achternaam die vooraan staat. Bruikbaar bij het scrapen van renners voor een ronde, maar niet voor eteappes */
 function normalizeCyclistName(rawName) {
   const name = rawName.trim();
   if (!name) return name;
 
   const tokens = name.split(/\s+/);
+
   const lastNameTokens = [];
   const firstNameTokens = [];
 
   for (const token of tokens) {
-    const hasLower = /[a-z]/.test(token);
-    if (firstNameTokens.length === 0 && !hasLower) {
-      lastNameTokens.push(token);
-    } else {
+    if (/[a-z]/.test(token)) {
+      // Zodra er een kleine letter in zit = voornaam deel
       firstNameTokens.push(token);
+    } else {
+      lastNameTokens.push(token);
     }
   }
 
-  const formattedFirst = firstNameTokens.map(titleCase);
-  const formattedLast = lastNameTokens.map(titleCase);
-
-  if (formattedFirst.length === 0 || formattedLast.length === 0) {
+  if (firstNameTokens.length === 0 || lastNameTokens.length === 0) {
     return tokens.map(titleCase).join(" ");
   }
 
-  return `${formattedFirst.join(" ")} ${formattedLast.join(" ")}`.trim();
+  const formattedFirst = firstNameTokens.map(titleCase).join(" ");
+  const formattedLast = lastNameTokens.map(titleCase).join(" ");
+  return `${formattedFirst} ${formattedLast}`.trim();
 }
 
 function writeYamlFile(targetPath, data) {
@@ -133,6 +150,7 @@ module.exports = {
   loadJerseys,
   mapProfileIconToStageType,
   formatRoute,
+  normalizeStageCyclistName,
   normalizeCyclistName,
   writeYamlFile,
 };
