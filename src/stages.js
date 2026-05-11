@@ -104,9 +104,7 @@ async function scrapeStageResults(stageUrl, maxResults) {
         return;
       }
 
-      console.log(`Found rider name: "${riderNameRaw}"`);
       const normalized = normalizeStageCyclistName(riderNameRaw);
-      console.log("normalized rider name:", normalized);
       if (normalized) {
         results.push(normalized);
       }
