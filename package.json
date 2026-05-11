@@ -4,10 +4,10 @@
   "description": "scrapes stages",
   "main": "cli.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "scrape:stages": "node cli.js stages",
     "scrape:cyclists": "node cli.js cyclists",
-    "format": "npx prettier --check output/**"
+    "format": "npx prettier --check output/**",
+    "test": "vitest"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "luxon": "^3.2.1"
   },
   "devDependencies": {
-    "prettier": "3.2.5"
+    "prettier": "3.2.5",
+    "vitest": "^4.1.5"
   }
 }
