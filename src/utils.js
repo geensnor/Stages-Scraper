@@ -98,16 +98,14 @@ function titleCase(word) {
 function normalizeStageCyclistName(rawName) {
   const name = rawName.trim();
   if (!name) return name;
-
   const tokens = name.split(/\s+/);
   if (tokens.length < 2) return titleCase(name);
 
-  // PCS etapperesultaten zijn altijd: Achternaam Voornaam
-  // Laatste token = voornaam, rest = achternaam
-  const firstName = tokens[tokens.length - 1];
-  const lastName = tokens.slice(0, tokens.length - 1).join(" ");
+  const lastName = tokens[0];
+  const firstNameTokens = tokens.slice(1);
 
-  return `${titleCase(firstName)} ${titleCase(lastName)}`.trim();
+  const firstName = firstNameTokens.map(titleCase).join(" ");
+  return `${firstName} ${titleCase(lastName)}`.trim();
 }
 
 /* Deze functie doet hetzelfdie als die hierboven, maar deze maakt ook nog kleine letters van de achternaam die vooraan staat. Bruikbaar bij het scrapen van renners voor een ronde, maar niet voor eteappes */
